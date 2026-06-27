@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitacoraLogin.cs" />
     <Compile Include="Composite\Familia.cs" />
     <Compile Include="Composite\Patente.cs" />
     <Compile Include="Composite\Permiso.cs" />

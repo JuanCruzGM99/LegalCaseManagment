@@ -54,6 +54,7 @@ namespace UI
 			try
 			{
 				logear(txtUsuario.Text, txtContraseña.Text);
+				//bitacora login exitoso
 			}
 			catch (LoginException error)
 			{
@@ -61,10 +62,12 @@ namespace UI
 				{
 					case LoginResult.InvalidUsername:
 						MessageBox.Show("Usuario incorrecto");
-						break;
+                        //bitacora login fallido user inexistente(crear user default para cargar en la bitacora.
+                        break;
 					case LoginResult.InvalidPassword:
 						MessageBox.Show("Password Incorrecto");
-						break;
+                        //bitacora login fallido password incorrecto
+                        break;
 
 					default:
 						break;
