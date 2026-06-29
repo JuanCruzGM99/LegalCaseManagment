@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractBLL.cs" />
+    <Compile Include="BLLBitacora.cs" />
     <Compile Include="BLLLogin.cs" />
     <Compile Include="BLLUsuario.cs" />
     <Compile Include="FamiliaBLL.cs" />

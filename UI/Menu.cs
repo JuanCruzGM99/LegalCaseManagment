@@ -57,5 +57,12 @@ namespace UI
 			frm.MdiParent = this;
 			frm.Show();
 		}
+
+        private void verBitacoraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			VerBitacora frm = new VerBitacora();
+			frm.MdiParent = this;
+			frm.Show();
+		}
     }
 }
