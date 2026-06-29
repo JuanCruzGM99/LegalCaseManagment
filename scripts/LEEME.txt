@@ -1,0 +1,10 @@
+Si querés crear una base nueva sin tocar la actual, lo más simple es cambiar el nombre de la base en todo el script. Tenés que buscar y reemplazar todas las apariciones de: BDHardwareFinal.
+
+En el .sql hacé:
+Ctrl + H
+Buscar: BDHardwareFinal
+Reemplazar por: BDHardwareFinal_Prueba
+Reemplazar todo
+
+En DAL/Acceso.cs:
+@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal_Prueba;Data Source=.\SQLEXPRESS"
