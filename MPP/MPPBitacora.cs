@@ -57,5 +57,17 @@ namespace MPP
 
             return lista;
         }
+
+
+        public bool Crear(int idUser, string actividad)
+        {
+            Acceso acceso = new Acceso();
+            Hashtable parametros = new Hashtable();
+
+            parametros.Add("@IDUser", idUser);
+            parametros.Add("@Actividad", actividad);
+
+            return acceso.Escribir("s_Bitacora_Crear", parametros);
+        }
     }
 }

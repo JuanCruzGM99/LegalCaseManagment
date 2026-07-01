@@ -16,5 +16,10 @@ namespace BLL
         {
             return mppBitacora.Listar(fechaDesde, fechaHasta, horaDesde, horaHasta, actividad, usuario);
         }
+
+        public bool Crear(int idUser, string actividad)
+        {
+            return mppBitacora.Crear(idUser, actividad);
+        }
     }
 }

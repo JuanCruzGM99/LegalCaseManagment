@@ -94,5 +94,33 @@ namespace MPP
                 return null;
             }
         }
+
+        //[NBL002] INICIO - Se agrega el metodo ObtenerPorNombre
+        public EEUsuario ObtenerPorNombre(string nombreUsuario)
+        {
+            Acceso acceso = new Acceso();
+            DataSet ds = new DataSet();
+            Hashtable parametros = new Hashtable();
+
+            parametros.Add("@NombreUsuario", nombreUsuario);
+
+            ds = acceso.Leer("s_Usuario_ObtenerPorNombre", parametros);
+
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                DataRow item = ds.Tables[0].Rows[0];
+
+                EEUsuario usuario = new EEUsuario();
+                usuario.ID = Convert.ToInt32(item["IDUser"]);
+                usuario.Username = item["NombreUsuario"].ToString();
+                usuario.Password = encriptador.Desencriptar(item["Contraseña"].ToString());
+
+                return usuario;
+            }
+
+            return null;
+        }
+        //[NBL002] FIN
+
     }
 }
