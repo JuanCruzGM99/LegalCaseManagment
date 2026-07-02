@@ -1,10 +1,33 @@
-Si querés crear una base nueva sin tocar la actual, lo más simple es cambiar el nombre de la base en todo el script. Tenés que buscar y reemplazar todas las apariciones de: BDHardwareFinal.
+#En el .sql hacé:
 
-En el .sql hacé:
-Ctrl + H
-Buscar: BDHardwareFinal
-Reemplazar por: BDHardwareFinal_Prueba
-Reemplazar todo
+- Ctrl + H
+- Buscar: BDHardwareFinal
+- Reemplazar por: BDHardwareFinal_1
+- Reemplazar todo
 
-En DAL/Acceso.cs:
-@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal_Prueba;Data Source=.\SQLEXPRESS"
+
+#En DAL/Acceso.cs:
+
+- @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal_1;Data Source=.\SQLEXPRESS"
+
+--------------------------------------------------------------------
+
+#Comandos para empezar a modificar:
+
+- cd ~/OneDrive/Documentos/Escritorio/LegalCaseManagment-natasha
+- git branch
+- git status
+- git fetch origin
+- git checkout natasha-bitacora
+- git pull origin natasha-bitacora
+- explorer .
+- abrir LegalCaseManagment.sln
+
+
+#Comandos para subir al GitHub:
+
+- git status
+- git add .
+- git status
+- git commit -m "Agrega registro automatico de login en bitacora"
+- git push origin natasha-bitacora

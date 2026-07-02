@@ -33,6 +33,7 @@ namespace UI
             cmbActividad.Items.Add("Login exitoso");
             cmbActividad.Items.Add("Login fallido - usuario inexistente");
             cmbActividad.Items.Add("Login fallido - contraseña incorrecta");
+            cmbActividad.Items.Add("Logout exitoso"); //[NBL003]
             cmbActividad.SelectedIndex = 0;
 
             dtpHoraDesde.Format = DateTimePickerFormat.Time;

@@ -15,6 +15,9 @@ namespace UI
 	public partial class Menu : Form
 	{
 		BLLUsuario _bllUsuarios;
+		private bool cerrandoSesion = false; //[NBL003]
+		BLLBitacora bllBitacora = new BLLBitacora();//[NBL001]
+
 		public Menu()
 		{
 			InitializeComponent();
@@ -31,7 +34,11 @@ namespace UI
 
 		private void Menu_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			Application.Exit();
+			//[NBL003] Se agrega condicion para que al cerrar sesion no se cierre la aplicacion.
+			if (!cerrandoSesion)
+			{
+				Application.Exit();
+			}
 		}
 
 		private void agregarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,5 +71,34 @@ namespace UI
 			frm.MdiParent = this;
 			frm.Show();
 		}
-    }
+
+		//[NBL003] INICIO - Se agrega evento para cerrar sesion
+		private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult respuesta = MessageBox.Show(
+				"¿Desea cerrar sesión?",
+				"Cerrar sesión",
+				MessageBoxButtons.YesNo,
+				MessageBoxIcon.Question
+			);
+
+			if (respuesta == DialogResult.Yes)
+			{
+				if (SessionManager.GetInstance != null && SessionManager.GetInstance.Usuario != null)
+				{
+					bllBitacora.Crear(SessionManager.GetInstance.Usuario.ID, "Logout exitoso");
+				}
+
+				cerrandoSesion = true;
+
+				SessionManager.Logout();
+
+				LogIn login = new LogIn();
+				login.Show();
+
+				this.Close();
+			}
+		}
+		//[NBL003] FIN
+	}
 }
