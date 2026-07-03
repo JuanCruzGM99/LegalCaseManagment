@@ -145,3 +145,96 @@ BEGIN
     );
 END
 GO
+-- Tipos de parte mínimos del sistema
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Requirente')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Requirente', 1);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Mediador')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Mediador', 2);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Letrado requirente')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Letrado requirente', 3);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Letrado compañia')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Letrado compañia', 4);
+END
+GO
+-- Personas iniciales de prueba
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Persona WHERE CUIT = '20-11111111-1')
+BEGIN
+    INSERT INTO dbo.Persona
+    (
+        NombreRazonSocial,
+        CUIT,
+        CBU,
+        Observaciones,
+        Activo
+    )
+    VALUES
+    (
+        'Juan Perez',
+        '20-11111111-1',
+        '0000003100011111111111',
+        'Requirente de prueba',
+        1
+    );
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Persona WHERE CUIT = '27-22222222-2')
+BEGIN
+    INSERT INTO dbo.Persona
+    (
+        NombreRazonSocial,
+        CUIT,
+        CBU,
+        Observaciones,
+        Activo
+    )
+    VALUES
+    (
+        'Dra. Laura Mendez',
+        '27-22222222-2',
+        NULL,
+        'Mediadora habitual',
+        1
+    );
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Persona WHERE CUIT = '20-33333333-3')
+BEGIN
+    INSERT INTO dbo.Persona
+    (
+        NombreRazonSocial,
+        CUIT,
+        CBU,
+        Observaciones,
+        Activo
+    )
+    VALUES
+    (
+        'Dr. Martin Lopez',
+        '20-33333333-3',
+        NULL,
+        'Letrado de la compañia',
+        1
+    );
+END
+GO

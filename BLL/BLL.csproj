@@ -43,9 +43,14 @@
   <ItemGroup>
     <Compile Include="AbstractBLL.cs" />
     <Compile Include="BLLBitacora.cs" />
+    <Compile Include="BLLIntegranteParte.cs" />
     <Compile Include="BLLLogin.cs" />
+    <Compile Include="BLLParte.cs" />
+    <Compile Include="BLLPersona.cs" />
     <Compile Include="BLLSiniestro.cs" />
+    <Compile Include="BLLTipoParte.cs" />
     <Compile Include="BLLUsuario.cs" />
+    <Compile Include="BLLVehiculo.cs" />
     <Compile Include="FamiliaBLL.cs" />
     <Compile Include="PatenteBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

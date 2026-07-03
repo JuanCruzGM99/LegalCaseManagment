@@ -44,8 +44,13 @@
     <Compile Include="EEBitacora.cs" />
     <Compile Include="EEControlCambioSiniestro.cs" />
     <Compile Include="EEHistorialSiniestro.cs" />
+    <Compile Include="EEIntegranteParte.cs" />
+    <Compile Include="EEParte.cs" />
+    <Compile Include="EEPersona.cs" />
     <Compile Include="EESiniestro.cs" />
+    <Compile Include="EETipoParte.cs" />
     <Compile Include="EEUsuario.cs" />
+    <Compile Include="EEVehiculo.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoPermiso.cs" />

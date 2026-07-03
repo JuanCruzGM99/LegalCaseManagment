@@ -42,8 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MPPBitacora.cs" />
+    <Compile Include="MPPIntegranteParte.cs" />
+    <Compile Include="MPPParte.cs" />
+    <Compile Include="MPPPersona.cs" />
     <Compile Include="MPPSiniestro.cs" />
+    <Compile Include="MPPTipoParte.cs" />
     <Compile Include="MPPUsuario.cs" />
+    <Compile Include="MPPVehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

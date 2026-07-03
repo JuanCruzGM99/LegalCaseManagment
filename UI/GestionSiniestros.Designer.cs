@@ -54,6 +54,7 @@ namespace UI
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.btnGestionarDetalle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiniestros)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCambios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
@@ -210,7 +211,7 @@ namespace UI
             // 
             // btnVerCambios
             // 
-            this.btnVerCambios.Location = new System.Drawing.Point(1279, 823);
+            this.btnVerCambios.Location = new System.Drawing.Point(1279, 856);
             this.btnVerCambios.Name = "btnVerCambios";
             this.btnVerCambios.Size = new System.Drawing.Size(105, 62);
             this.btnVerCambios.TabIndex = 17;
@@ -220,7 +221,7 @@ namespace UI
             // 
             // btnRestaurar
             // 
-            this.btnRestaurar.Location = new System.Drawing.Point(1279, 601);
+            this.btnRestaurar.Location = new System.Drawing.Point(1279, 634);
             this.btnRestaurar.Name = "btnRestaurar";
             this.btnRestaurar.Size = new System.Drawing.Size(105, 37);
             this.btnRestaurar.TabIndex = 19;
@@ -242,7 +243,7 @@ namespace UI
             // dgvCambios
             // 
             this.dgvCambios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCambios.Location = new System.Drawing.Point(26, 730);
+            this.dgvCambios.Location = new System.Drawing.Point(26, 763);
             this.dgvCambios.Name = "dgvCambios";
             this.dgvCambios.RowHeadersWidth = 82;
             this.dgvCambios.RowTemplate.Height = 24;
@@ -252,7 +253,7 @@ namespace UI
             // dgvHistorial
             // 
             this.dgvHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHistorial.Location = new System.Drawing.Point(26, 515);
+            this.dgvHistorial.Location = new System.Drawing.Point(26, 548);
             this.dgvHistorial.Name = "dgvHistorial";
             this.dgvHistorial.RowHeadersWidth = 82;
             this.dgvHistorial.RowTemplate.Height = 24;
@@ -272,7 +273,7 @@ namespace UI
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(23, 703);
+            this.label9.Location = new System.Drawing.Point(23, 736);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(130, 16);
             this.label9.TabIndex = 24;
@@ -281,17 +282,29 @@ namespace UI
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(23, 482);
+            this.label10.Location = new System.Drawing.Point(23, 515);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(133, 16);
             this.label10.TabIndex = 25;
             this.label10.Text = "Historial de Cambios";
             // 
+            // btnGestionarDetalle
+            // 
+            this.btnGestionarDetalle.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnGestionarDetalle.Location = new System.Drawing.Point(829, 449);
+            this.btnGestionarDetalle.Name = "btnGestionarDetalle";
+            this.btnGestionarDetalle.Size = new System.Drawing.Size(166, 37);
+            this.btnGestionarDetalle.TabIndex = 26;
+            this.btnGestionarDetalle.Text = "Partes y vehículos";
+            this.btnGestionarDetalle.UseVisualStyleBackColor = false;
+            this.btnGestionarDetalle.Click += new System.EventHandler(this.btnGestionarDetalle_Click);
+            // 
             // GestionSiniestros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1408, 917);
+            this.ClientSize = new System.Drawing.Size(1408, 1019);
+            this.Controls.Add(this.btnGestionarDetalle);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -355,5 +368,6 @@ namespace UI
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnGestionarDetalle;
     }
 }

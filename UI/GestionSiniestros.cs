@@ -316,5 +316,20 @@ namespace UI //[NBL004] Se crea formulario GestionSiniestros
             CargarCambiosPorHistorial(idHistorialSiniestro);
         }
 
+        private void btnGestionarDetalle_Click(object sender, EventArgs e) //NBL005
+        {
+            if (idSiniestroSeleccionado == 0)
+            {
+                MessageBox.Show("Debe seleccionar un siniestro.");
+                return;
+            }
+
+            GestionDetalleSiniestro frm = new GestionDetalleSiniestro(
+                idSiniestroSeleccionado,
+                txtNumeroSiniestro.Text.Trim()
+            );
+
+            frm.ShowDialog();
+        }
     }
 }
