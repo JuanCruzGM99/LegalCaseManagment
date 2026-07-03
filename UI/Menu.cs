@@ -72,8 +72,8 @@ namespace UI
 			frm.Show();
 		}
 
-		//[NBL003] INICIO - Se agrega evento para cerrar sesion
-		private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+		
+		private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e) //[NBL003] Se agrega evento para cerrar sesion
 		{
 			DialogResult respuesta = MessageBox.Show(
 				"¿Desea cerrar sesión?",
@@ -99,6 +99,12 @@ namespace UI
 				this.Close();
 			}
 		}
-		//[NBL003] FIN
+        
+		private void gestionarSiniestrosToolStripMenuItem_Click(object sender, EventArgs e) //[NBL004] Se agrega evento para Gestion de Siniestros
+		{
+			GestionSiniestros frm = new GestionSiniestros();
+			frm.MdiParent = this;
+			frm.Show();
+		}
 	}
 }
