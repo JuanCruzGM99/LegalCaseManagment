@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EEBitacora.cs" />
+    <Compile Include="EEControlCambioSiniestro.cs" />
+    <Compile Include="EEHistorialSiniestro.cs" />
+    <Compile Include="EESiniestro.cs" />
     <Compile Include="EEUsuario.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

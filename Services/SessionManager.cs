@@ -11,9 +11,13 @@ namespace Services
     {
         private static object Lock = new Object();
         private static SessionManager Session;
-        private static Sesion _instancia;
-
+        //private static Sesion _instancia; [NBL004] borrar
         public EEUsuario Usuario { get; set; }
+
+        private SessionManager()
+        {
+            //se coloca el constructor como privado para asegurarnos que la instancia NO sea controlada fuera de la clase 
+        }
 
         public static SessionManager GetInstance
         {
@@ -28,7 +32,7 @@ namespace Services
         public static void Login(EEUsuario usuario)
         {
 
-            lock (Lock)
+            lock (Lock) //para mantener la instancia en entornos multihilo
             {
                 if (Session == null)
                 {
@@ -44,7 +48,7 @@ namespace Services
 
         public static void Logout()
         {
-            lock (Lock)
+            lock (Lock) //para mantener la instancia en entornos multihilo
             {
                 if (Session != null)
                 {
@@ -52,16 +56,10 @@ namespace Services
                 }
                 else
                 {
-                    //throw new Exception("La sesion no se inicio correctamente");
+                    throw new Exception("La sesion no se inicio correctamente");
                 }
             }
-
-
         }
-
-        private SessionManager()
-        {
-
-        }
+        
     }
 }

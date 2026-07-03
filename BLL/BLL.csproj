@@ -44,6 +44,7 @@
     <Compile Include="AbstractBLL.cs" />
     <Compile Include="BLLBitacora.cs" />
     <Compile Include="BLLLogin.cs" />
+    <Compile Include="BLLSiniestro.cs" />
     <Compile Include="BLLUsuario.cs" />
     <Compile Include="FamiliaBLL.cs" />
     <Compile Include="PatenteBLL.cs" />

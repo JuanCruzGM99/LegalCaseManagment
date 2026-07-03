@@ -50,17 +50,17 @@ namespace UI
             // dgvBitacora
             // 
             this.dgvBitacora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBitacora.Location = new System.Drawing.Point(485, 56);
+            this.dgvBitacora.Location = new System.Drawing.Point(43, 41);
             this.dgvBitacora.Name = "dgvBitacora";
             this.dgvBitacora.RowHeadersWidth = 82;
             this.dgvBitacora.RowTemplate.Height = 24;
-            this.dgvBitacora.Size = new System.Drawing.Size(1033, 388);
+            this.dgvBitacora.Size = new System.Drawing.Size(801, 354);
             this.dgvBitacora.TabIndex = 1;
             // 
             // cmbActividad
             // 
             this.cmbActividad.FormattingEnabled = true;
-            this.cmbActividad.Location = new System.Drawing.Point(204, 264);
+            this.cmbActividad.Location = new System.Drawing.Point(995, 253);
             this.cmbActividad.Name = "cmbActividad";
             this.cmbActividad.Size = new System.Drawing.Size(220, 24);
             this.cmbActividad.TabIndex = 3;
@@ -68,7 +68,7 @@ namespace UI
             // chkHoraDesde
             // 
             this.chkHoraDesde.AutoSize = true;
-            this.chkHoraDesde.Location = new System.Drawing.Point(94, 158);
+            this.chkHoraDesde.Location = new System.Drawing.Point(885, 147);
             this.chkHoraDesde.Name = "chkHoraDesde";
             this.chkHoraDesde.Size = new System.Drawing.Size(115, 27);
             this.chkHoraDesde.TabIndex = 7;
@@ -78,7 +78,7 @@ namespace UI
             // chkFechaDesde
             // 
             this.chkFechaDesde.AutoSize = true;
-            this.chkFechaDesde.Location = new System.Drawing.Point(94, 56);
+            this.chkFechaDesde.Location = new System.Drawing.Point(885, 45);
             this.chkFechaDesde.Name = "chkFechaDesde";
             this.chkFechaDesde.Size = new System.Drawing.Size(123, 27);
             this.chkFechaDesde.TabIndex = 2;
@@ -87,7 +87,7 @@ namespace UI
             // 
             // dtpFechaDesde
             // 
-            this.dtpFechaDesde.Location = new System.Drawing.Point(224, 55);
+            this.dtpFechaDesde.Location = new System.Drawing.Point(1015, 44);
             this.dtpFechaDesde.Name = "dtpFechaDesde";
             this.dtpFechaDesde.Size = new System.Drawing.Size(200, 22);
             this.dtpFechaDesde.TabIndex = 4;
@@ -95,7 +95,7 @@ namespace UI
             // chkFechaHasta
             // 
             this.chkFechaHasta.AutoSize = true;
-            this.chkFechaHasta.Location = new System.Drawing.Point(94, 105);
+            this.chkFechaHasta.Location = new System.Drawing.Point(885, 94);
             this.chkFechaHasta.Name = "chkFechaHasta";
             this.chkFechaHasta.Size = new System.Drawing.Size(117, 27);
             this.chkFechaHasta.TabIndex = 5;
@@ -104,7 +104,7 @@ namespace UI
             // 
             // dtpFechaHasta
             // 
-            this.dtpFechaHasta.Location = new System.Drawing.Point(224, 110);
+            this.dtpFechaHasta.Location = new System.Drawing.Point(1015, 99);
             this.dtpFechaHasta.Name = "dtpFechaHasta";
             this.dtpFechaHasta.Size = new System.Drawing.Size(200, 22);
             this.dtpFechaHasta.TabIndex = 6;
@@ -112,7 +112,7 @@ namespace UI
             // chkHoraHasta
             // 
             this.chkHoraHasta.AutoSize = true;
-            this.chkHoraHasta.Location = new System.Drawing.Point(94, 209);
+            this.chkHoraHasta.Location = new System.Drawing.Point(885, 198);
             this.chkHoraHasta.Name = "chkHoraHasta";
             this.chkHoraHasta.Size = new System.Drawing.Size(109, 27);
             this.chkHoraHasta.TabIndex = 8;
@@ -122,7 +122,7 @@ namespace UI
             // dtpHoraDesde
             // 
             this.dtpHoraDesde.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpHoraDesde.Location = new System.Drawing.Point(224, 163);
+            this.dtpHoraDesde.Location = new System.Drawing.Point(1015, 152);
             this.dtpHoraDesde.Name = "dtpHoraDesde";
             this.dtpHoraDesde.ShowUpDown = true;
             this.dtpHoraDesde.Size = new System.Drawing.Size(200, 22);
@@ -131,7 +131,7 @@ namespace UI
             // dtpHoraHasta
             // 
             this.dtpHoraHasta.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpHoraHasta.Location = new System.Drawing.Point(224, 209);
+            this.dtpHoraHasta.Location = new System.Drawing.Point(1015, 198);
             this.dtpHoraHasta.Name = "dtpHoraHasta";
             this.dtpHoraHasta.ShowUpDown = true;
             this.dtpHoraHasta.Size = new System.Drawing.Size(200, 22);
@@ -139,7 +139,7 @@ namespace UI
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(204, 312);
+            this.txtUsuario.Location = new System.Drawing.Point(995, 301);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(220, 22);
             this.txtUsuario.TabIndex = 11;
@@ -147,7 +147,7 @@ namespace UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(94, 267);
+            this.label1.Location = new System.Drawing.Point(885, 256);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 16);
             this.label1.TabIndex = 12;
@@ -156,7 +156,7 @@ namespace UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(94, 315);
+            this.label2.Location = new System.Drawing.Point(885, 304);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 16);
             this.label2.TabIndex = 13;
@@ -164,17 +164,17 @@ namespace UI
             // 
             // btnVer
             // 
-            this.btnVer.Location = new System.Drawing.Point(327, 373);
+            this.btnVer.Location = new System.Drawing.Point(1118, 362);
             this.btnVer.Name = "btnVer";
             this.btnVer.Size = new System.Drawing.Size(96, 33);
             this.btnVer.TabIndex = 14;
-            this.btnVer.Text = "Ver";
+            this.btnVer.Text = "Aplicar Filtro";
             this.btnVer.UseVisualStyleBackColor = true;
             this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(327, 412);
+            this.btnLimpiar.Location = new System.Drawing.Point(1004, 364);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(96, 31);
             this.btnLimpiar.TabIndex = 15;
@@ -186,7 +186,7 @@ namespace UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1569, 512);
+            this.ClientSize = new System.Drawing.Size(1262, 426);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.label2);

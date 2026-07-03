@@ -52,6 +52,12 @@
     <Compile Include="CrearUser.Designer.cs">
       <DependentUpon>CrearUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestionSiniestros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionSiniestros.Designer.cs">
+      <DependentUpon>GestionSiniestros.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestorPermisos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     </Compile>
     <EmbeddedResource Include="CrearUser.resx">
       <DependentUpon>CrearUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionSiniestros.resx">
+      <DependentUpon>GestionSiniestros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestorPermisos.resx">
       <DependentUpon>GestorPermisos.cs</DependentUpon>
