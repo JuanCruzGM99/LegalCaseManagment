@@ -331,5 +331,21 @@ namespace UI //[NBL004] Se crea formulario GestionSiniestros
 
             frm.ShowDialog();
         }
+
+        private void btnGenerarDocumento_Click(object sender, EventArgs e) //[NBL006]
+        {
+            if (idSiniestroSeleccionado == 0)
+            {
+                MessageBox.Show("Debe seleccionar un siniestro.");
+                return;
+            }
+
+            GenerarDocumentoLegal frm = new GenerarDocumentoLegal(
+                idSiniestroSeleccionado,
+                txtNumeroSiniestro.Text.Trim()
+            );
+
+            frm.ShowDialog();
+        }
     }
 }
