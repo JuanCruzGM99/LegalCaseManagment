@@ -9,102 +9,121 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Services;
 using BLL;
+using BE;
 
 namespace UI
 {
-	public partial class Menu : Form
-	{
-		BLLUsuario _bllUsuarios;
-		private bool cerrandoSesion = false; //[NBL003]
-		BLLBitacora bllBitacora = new BLLBitacora();//[NBL001]
+    public partial class Menu : Form
+    {
+        BLLUsuario _bllUsuarios;
+        private bool cerrandoSesion = false;
+        BLLBitacora bllBitacora = new BLLBitacora();
 
-		public Menu()
-		{
-			InitializeComponent();
-			//valido permisos
-			//this.mnuGestorPermisos.Enabled = SessionManager.Instancia.IsInRole(TipoPermiso.GestorPermiso);
-			//this.mnuGestorUsuarios.Enabled = SessionManager.Instancia.IsInRole(TipoPermiso.GestorUsuario);
-			_bllUsuarios = new BLLUsuario();
-		}
+        public Menu()
+        {
+            InitializeComponent();
+            _bllUsuarios = new BLLUsuario();
+            AplicarPermisosMenu();
+        }
 
-		private void Menu_Load(object sender, EventArgs e)
-		{
-			  
-		}
+        private void AplicarPermisosMenu()
+        {
+            bool puedeGestionarPermisos = false;
+            bool puedeGestionarUsuarios = false;
 
-		private void Menu_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			//[NBL003] Se agrega condicion para que al cerrar sesion no se cierre la aplicacion.
-			if (!cerrandoSesion)
-			{
-				Application.Exit();
-			}
-		}
+            try
+            {
+                puedeGestionarPermisos = SessionManager.GetInstance.IsInRole(TipoPermiso.GestorPermiso);
+                puedeGestionarUsuarios = SessionManager.GetInstance.IsInRole(TipoPermiso.GestorUsuario);
+            }
+            catch
+            {
+                // Si no hay sesión iniciada, se dejan deshabilitados.
+            }
 
-		private void agregarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			CrearUser crearUser = new CrearUser();
-			crearUser.MdiParent = this;
-			crearUser.Show();
-		}
+            this.mnuGestorPermisos.Enabled = puedeGestionarPermisos;
+            this.mnuGestorUsuarios.Enabled = puedeGestionarUsuarios;
+            this.agregarUsuarioToolStripMenuItem.Enabled = puedeGestionarUsuarios;
+        }
 
-		private void gestionDeToolStripMenuItem_Click(object sender, EventArgs e)
-		{
+        private void Menu_Load(object sender, EventArgs e)
+        {
+        }
 
-		}
+        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!cerrandoSesion)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void agregarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirCrearUsuario();
+        }
+
+        private void gestionDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirCrearUsuario();
+        }
+
+        private void AbrirCrearUsuario()
+        {
+            CrearUser crearUser = new CrearUser();
+            crearUser.MdiParent = this;
+            crearUser.Show();
+        }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-
         }
 
         private void gestionDePermisosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			GestorPermisos frm = new GestorPermisos();
-			frm.MdiParent = this;
-			frm.Show();
-		}
+            GestorPermisos frm = new GestorPermisos();
+            frm.MdiParent = this;
+            frm.Show();
+        }
 
         private void verBitacoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			VerBitacora frm = new VerBitacora();
-			frm.MdiParent = this;
-			frm.Show();
-		}
+            VerBitacora frm = new VerBitacora();
+            frm.MdiParent = this;
+            frm.Show();
+        }
 
-		
-		private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e) //[NBL003] Se agrega evento para cerrar sesion
-		{
-			DialogResult respuesta = MessageBox.Show(
-				"¿Desea cerrar sesión?",
-				"Cerrar sesión",
-				MessageBoxButtons.YesNo,
-				MessageBoxIcon.Question
-			);
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show(
+                "¿Desea cerrar sesión?",
+                "Cerrar sesión",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
 
-			if (respuesta == DialogResult.Yes)
-			{
-				if (SessionManager.GetInstance != null && SessionManager.GetInstance.Usuario != null)
-				{
-					bllBitacora.Crear(SessionManager.GetInstance.Usuario.ID, "Logout exitoso");
-				}
+            if (respuesta == DialogResult.Yes)
+            {
+                if (SessionManager.GetInstance != null && SessionManager.GetInstance.Usuario != null)
+                {
+                    bllBitacora.Crear(SessionManager.GetInstance.Usuario.ID, "Logout exitoso");
+                }
 
-				cerrandoSesion = true;
+                cerrandoSesion = true;
+                SessionManager.Logout();
 
-				SessionManager.Logout();
+                LogIn login = new LogIn();
+                login.Show();
 
-				LogIn login = new LogIn();
-				login.Show();
+                this.Close();
+            }
+        }
 
-				this.Close();
-			}
-		}
-        
-		private void gestionarSiniestrosToolStripMenuItem_Click(object sender, EventArgs e) //[NBL004] Se agrega evento para Gestion de Siniestros
-		{
-			GestionSiniestros frm = new GestionSiniestros();
-			frm.MdiParent = this;
-			frm.Show();
-		}
-	}
+        private void gestionarSiniestrosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GestionSiniestros frm = new GestionSiniestros();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+    }
 }

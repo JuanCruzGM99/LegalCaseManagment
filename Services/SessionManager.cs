@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
+using Interfaces;
+using Services.Composite;
 
 namespace Services
 {
@@ -11,28 +13,24 @@ namespace Services
     {
         private static object Lock = new Object();
         private static SessionManager Session;
-        //private static Sesion _instancia; [NBL004] borrar
         public EEUsuario Usuario { get; set; }
 
         private SessionManager()
         {
-            //se coloca el constructor como privado para asegurarnos que la instancia NO sea controlada fuera de la clase 
         }
 
         public static SessionManager GetInstance
         {
             get
             {
-                if (Session == null) throw new Exception("La sesion ya estaba iniciada");
-
+                if (Session == null) throw new Exception("La sesion no está iniciada");
                 return Session;
             }
         }
 
         public static void Login(EEUsuario usuario)
         {
-
-            lock (Lock) //para mantener la instancia en entornos multihilo
+            lock (Lock)
             {
                 if (Session == null)
                 {
@@ -48,7 +46,7 @@ namespace Services
 
         public static void Logout()
         {
-            lock (Lock) //para mantener la instancia en entornos multihilo
+            lock (Lock)
             {
                 if (Session != null)
                 {
@@ -60,6 +58,34 @@ namespace Services
                 }
             }
         }
-        
+
+        public bool IsInRole(Enum tipoPermiso)
+        {
+            if (Usuario == null)
+                return false;
+
+            foreach (IPermiso permiso in Usuario.Permisos)
+            {
+                if (TienePermisoRecursivo(permiso, tipoPermiso))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool TienePermisoRecursivo(IPermiso permiso, Enum tipoPermiso)
+        {
+            Patente patente = permiso as Patente;
+            if (patente != null && patente.Tipo.HasValue && patente.Tipo.Value.Equals(tipoPermiso))
+                return true;
+
+            foreach (IPermiso hijo in permiso.ObtenerHijos())
+            {
+                if (TienePermisoRecursivo(hijo, tipoPermiso))
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

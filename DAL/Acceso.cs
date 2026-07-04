@@ -12,8 +12,8 @@ namespace DAL
     public class Acceso
     {
         //[NBL001] INICIO - Se cambia la cadena de conexion para que funcione en la notebook
-        private string CadenaC = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal;Data Source=.\SQLEXPRESS";
-        public SqlConnection connection = new SqlConnection(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal;Data Source=.\SQLEXPRESS");
+        private string CadenaC = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal;Data Source=(localdb)\MSSQLLocalDB";
+        public SqlConnection connection = new SqlConnection(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal;Data Source=(localdb)\MSSQLLocalDB");
         //private string CadenaC = @"Data Source=050LAB3-18;Initial Catalog=BDHardwareFinal;Integrated Security=True";
         //private string CadenaC = @"Data Source=DESKTOP-NSUHLDS\SQLEXPRESS;Initial Catalog=BDHardwareFinal;Integrated Security=True";
         //public SqlConnection connection = new SqlConnection(@"Data Source=050LAB3-18;Initial Catalog=BDHardwareFinal;Integrated Security=True");
