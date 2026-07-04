@@ -52,6 +52,12 @@
     <Compile Include="CrearUser.Designer.cs">
       <DependentUpon>CrearUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerarDocumentoLegal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarDocumentoLegal.Designer.cs">
+      <DependentUpon>GenerarDocumentoLegal.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestionDetalleSiniestro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     </Compile>
     <EmbeddedResource Include="CrearUser.resx">
       <DependentUpon>CrearUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarDocumentoLegal.resx">
+      <DependentUpon>GenerarDocumentoLegal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestionDetalleSiniestro.resx">
       <DependentUpon>GestionDetalleSiniestro.cs</DependentUpon>
