@@ -51,5 +51,14 @@ namespace BLL
 
             return _Usuario2;
         }
+
+        //[NBL002] INICIO - Se agrega el metodo ObtenerPorNombre
+        public EEUsuario ObtenerPorNombre(string nombreUsuario)
+        {
+            MPPUsuario mPPUsuario = new MPPUsuario();
+            return mPPUsuario.ObtenerPorNombre(nombreUsuario);
+        }
+        //[NBL002] FIN
+
     }
 }

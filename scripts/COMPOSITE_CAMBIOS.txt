@@ -1,0 +1,27 @@
+CAMBIOS APLICADOS PARA PATRON COMPOSITE + SQL
+
+1) Base de datos
+   Ejecutar primero scripts/Agregar_Modulo_Permisos_Composite.sql sobre BDHardwareFinal.
+   Agrega: Patente, Familia, FamiliaPatente, FamiliaFamilia, UsuarioFamilia y Stored Procedures.
+
+2) Composite
+   Services.Composite.Familia sigue siendo el composite.
+   Services.Composite.Patente sigue siendo la hoja.
+   Ambas implementan IPermiso.
+
+3) DAL
+   FamiliaDAL y PatenteDAL ya no guardan en memoria: ahora llaman a Stored Procedures.
+   FamiliaDAL arma el arbol completo Familia -> Familia -> Patente.
+
+4) Login y permisos
+   MPPUsuario carga las familias del usuario desde SQL al hacer login.
+   SessionManager.IsInRole valida permisos recorriendo el composite recursivamente.
+
+5) UI
+   Menu habilita Gestion de permisos y Gestion de usuarios segun permisos.
+   GestorPermisos permite ver el arbol del usuario y asignar/quitar familias.
+
+Usuario de prueba esperado:
+   admin
+
+El script SQL asigna la familia Administradores al usuario admin si existe.

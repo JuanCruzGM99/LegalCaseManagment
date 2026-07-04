@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
+using Interfaces;
+using Services.Composite;
 
 namespace Services
 {
@@ -11,23 +13,23 @@ namespace Services
     {
         private static object Lock = new Object();
         private static SessionManager Session;
-        private static Sesion _instancia;
-
         public EEUsuario Usuario { get; set; }
+
+        private SessionManager()
+        {
+        }
 
         public static SessionManager GetInstance
         {
             get
             {
-                if (Session == null) throw new Exception("La sesion ya estaba iniciada");
-
+                if (Session == null) throw new Exception("La sesion no está iniciada");
                 return Session;
             }
         }
 
         public static void Login(EEUsuario usuario)
         {
-
             lock (Lock)
             {
                 if (Session == null)
@@ -52,16 +54,38 @@ namespace Services
                 }
                 else
                 {
-                    //throw new Exception("La sesion no se inicio correctamente");
+                    throw new Exception("La sesion no se inicio correctamente");
                 }
             }
-
-
         }
 
-        private SessionManager()
+        public bool IsInRole(Enum tipoPermiso)
         {
+            if (Usuario == null)
+                return false;
 
+            foreach (IPermiso permiso in Usuario.Permisos)
+            {
+                if (TienePermisoRecursivo(permiso, tipoPermiso))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool TienePermisoRecursivo(IPermiso permiso, Enum tipoPermiso)
+        {
+            Patente patente = permiso as Patente;
+            if (patente != null && patente.Tipo.HasValue && patente.Tipo.Value.Equals(tipoPermiso))
+                return true;
+
+            foreach (IPermiso hijo in permiso.ObtenerHijos())
+            {
+                if (TienePermisoRecursivo(hijo, tipoPermiso))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

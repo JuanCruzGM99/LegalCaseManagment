@@ -1,0 +1,240 @@
+#En el .sql hacé:
+
+- Ctrl + H
+- Buscar: BDHardwareFinal
+- Reemplazar por: BDHardwareFinal_1
+- Reemplazar todo
+
+
+#En DAL/Acceso.cs:
+
+- @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BDHardwareFinal_1;Data Source=.\SQLEXPRESS"
+
+--------------------------------------------------------------------
+
+#Comandos para empezar a modificar:
+
+- cd ~/OneDrive/Documentos/Escritorio/LegalCaseManagment-natasha
+- git branch
+- git status
+- git fetch origin
+- git checkout natasha-bitacora
+- git pull origin natasha-bitacora
+- explorer .
+- abrir LegalCaseManagment.sln
+
+
+#Comandos para subir al GitHub:
+
+- git status
+- git add .
+- git status
+- git commit -m "Agrega registro automatico de login en bitacora"
+- git push origin natasha-bitacora
+
+-------------------------------------------------------------------
+
+#Generar script:
+
+- Hacé **clic derecho** sobre la base.
+- Tasks
+- Generate Scripts
+- Script entire database and all database objects
+- Save as script file
+- Single script file
+- Advanced
+Types of data to script: Schema only
+Script USE DATABASE: True
+Script Foreign Keys: True
+Script Primary Keys: True
+Script Indexes: True
+- Unicode text
+- limpiar el inicio porque tiene rutas de tu máquina. Borrar el principio reemplazandolo por estas lineas:
+USE [master]
+GO
+
+IF DB_ID(N'BDHardwareFinal') IS NULL
+BEGIN
+    CREATE DATABASE [BDHardwareFinal];
+END
+GO
+
+USE [BDHardwareFinal]
+GO
+- despues agregarle esto al final:
+USE [BDHardwareFinal]
+GO
+
+-- Usuarios mínimos para probar el sistema
+
+IF NOT EXISTS (
+    SELECT 1 
+    FROM dbo.Usuario 
+    WHERE NombreUsuario = 'admin'
+)
+BEGIN
+    INSERT INTO dbo.Usuario (NombreUsuario, Contraseña)
+    VALUES ('admin', 'fFh75oIdHrc=');
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1 
+    FROM dbo.Usuario 
+    WHERE NombreUsuario = 'anonimo'
+)
+BEGIN
+    INSERT INTO dbo.Usuario (NombreUsuario, Contraseña)
+    VALUES ('anonimo', '6RqPkh7qMkw=');
+END
+GO
+
+-- Registro inicial de bitácora para probar el formulario
+
+DECLARE @IDAdmin INT;
+
+SELECT @IDAdmin = IDUser
+FROM dbo.Usuario
+WHERE NombreUsuario = 'admin';
+
+IF @IDAdmin IS NOT NULL
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.Bitacora
+    WHERE IDUser = @IDAdmin
+      AND Actividad = 'Login exitoso'
+)
+BEGIN
+    INSERT INTO dbo.Bitacora (IDUser, Actividad, Fecha, Hora)
+    VALUES (
+        @IDAdmin,
+        'Login exitoso',
+        CAST(GETDATE() AS DATE),
+        CAST(GETDATE() AS TIME)
+    );
+END
+GO
+
+-- Siniestro inicial para probar la gestión de casos
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM dbo.Siniestro
+    WHERE NumeroSiniestro = 'SIN-001'
+)
+BEGIN
+    INSERT INTO dbo.Siniestro
+    (
+        NumeroSiniestro,
+        Caratula,
+        AnalistaInterno,
+        FechaSiniestro,
+        LugarSiniestro,
+        Estado,
+        Observaciones
+    )
+    VALUES
+    (
+        'SIN-001',
+        'Gomez c/ San Cristobal s/ daños',
+        'Analista prueba',
+        '2026-07-03',
+        'Av. Corrientes 1234',
+        'En curso',
+        'Caso cargado para prueba'
+    );
+END
+GO
+-- Tipos de parte mínimos del sistema
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Requirente')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Requirente', 1);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Mediador')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Mediador', 2);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Letrado requirente')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Letrado requirente', 3);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TipoParte WHERE Nombre = 'Letrado compañia')
+BEGIN
+    INSERT INTO dbo.TipoParte (Nombre, Orden)
+    VALUES ('Letrado compañia', 4);
+END
+GO
+-- Personas iniciales de prueba
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Persona WHERE CUIT = '20-11111111-1')
+BEGIN
+    INSERT INTO dbo.Persona
+    (
+        NombreRazonSocial,
+        CUIT,
+        CBU,
+        Observaciones,
+        Activo
+    )
+    VALUES
+    (
+        'Juan Perez',
+        '20-11111111-1',
+        '0000003100011111111111',
+        'Requirente de prueba',
+        1
+    );
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Persona WHERE CUIT = '27-22222222-2')
+BEGIN
+    INSERT INTO dbo.Persona
+    (
+        NombreRazonSocial,
+        CUIT,
+        CBU,
+        Observaciones,
+        Activo
+    )
+    VALUES
+    (
+        'Dra. Laura Mendez',
+        '27-22222222-2',
+        NULL,
+        'Mediadora habitual',
+        1
+    );
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Persona WHERE CUIT = '20-33333333-3')
+BEGIN
+    INSERT INTO dbo.Persona
+    (
+        NombreRazonSocial,
+        CUIT,
+        CBU,
+        Observaciones,
+        Activo
+    )
+    VALUES
+    (
+        'Dr. Martin Lopez',
+        '20-33333333-3',
+        NULL,
+        'Letrado de la compañia',
+        1
+    );
+END
+GO

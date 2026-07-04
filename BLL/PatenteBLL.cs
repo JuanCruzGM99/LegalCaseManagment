@@ -12,27 +12,14 @@ namespace BLL
 {
     public class PatenteBLL : AbstractBLL<IPatente>
     {
-
         public PatenteBLL()
         {
             _crud = new PatenteDAL();
         }
 
-
+        // Se deja el método para no romper referencias viejas, pero la carga inicial ahora está en SQL.
         public void SimularDatos()
         {
-            var p = new Patente();
-            p.Nombre = "Puede gestionar usuarios";
-            p.Tipo = TipoPermiso.GestorUsuario;
-            _crud.Save(p);
-
-            p = new Patente();
-            p.Nombre = "Puede gestionar permisos";
-            p.Tipo = TipoPermiso.GestorPermiso;
-            _crud.Save(p);
-
         }
-
-
     }
 }

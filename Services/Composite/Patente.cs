@@ -1,19 +1,23 @@
-﻿using System;
+﻿using BE;
+using Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Interfaces;
 
 namespace Services.Composite
 {
     public class Patente : Permiso, IPatente
     {
-        public Enum Tipo { get; set; }
+        public string Codigo { get; set; }
+
+        // Se usa para validar permisos en menú/login con SessionManager.IsInRole(...)
+        public TipoPermiso? Tipo { get; set; }
 
         public override void AgregarPermiso(IPermiso p)
         {
-
+            throw new InvalidOperationException("Una 'Patente' es una hoja y no puede contener hijos.");
         }
 
         public override IList<IPermiso> ObtenerHijos()
@@ -23,7 +27,7 @@ namespace Services.Composite
 
         public override void QuitarPermiso(IPermiso p)
         {
-
+            throw new InvalidOperationException("Una 'Patente' es una hoja y no puede contener hijos.");
         }
     }
 }
