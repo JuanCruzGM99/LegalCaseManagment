@@ -13,7 +13,7 @@ namespace BLL
     public class BLLUsuario : AbstractBLL<EEUsuario>
     {
         public BLLUsuario()
-        {
+        {         
             _crud = new UsuarioDAL();
         }
 
@@ -32,6 +32,18 @@ namespace BLL
         public new IList<EEUsuario> GetAll()
         {
             return ListarUsers();
+        }
+
+        public bool VerificarIntegridadUsuarios()
+        {
+            MPPUsuario MPP_User = new MPPUsuario();
+            return MPP_User.VerificarIntegridadUsuarios();
+        }
+
+        public bool RecalcularDigitosVerificadoresUsuarios()
+        {
+            MPPUsuario MPP_User = new MPPUsuario();
+            return MPP_User.ActualizarDVVUsuarios();
         }
     }
 }
