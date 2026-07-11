@@ -17,7 +17,7 @@ namespace BLL
             _crud = new PatenteDAL();
         }
 
-        // Se deja el método para no romper referencias viejas, pero la carga inicial ahora está en SQL.
+        // codigo viejo
         public void SimularDatos()
         {
         }

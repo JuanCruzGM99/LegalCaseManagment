@@ -1,0 +1,53 @@
+CAMBIOS - DIGITO VERIFICADOR
+============================
+
+Se quitó la versión con Adapter y Decorator usando como base la solución Composite anterior.
+Se agregó una lógica simple de Dígito Verificador sobre la tabla Usuario.
+
+Archivos agregados/modificados:
+
+1) Services/DigitoVerificador.cs
+   - Calcula DVH de un usuario.
+   - Calcula DVV a partir de una lista de DVH.
+   - Valida si el DVH persistido coincide con el calculado.
+
+2) MPP/MPPUsuario.cs
+   - Al crear usuario calcula el DVH y lo envía al stored procedure s_Usuario_Crear.
+   - Antes de listar usuarios o buscar usuario por nombre verifica el DVV.
+   - Al leer cada usuario valida el DVH.
+   - Si detecta inconsistencia, lanza una excepción clara.
+
+3) BLL/BLLUsuario.cs
+   - Expone métodos simples para verificar y recalcular la integridad de usuarios.
+
+4) Services/Services.csproj
+   - Incluye el nuevo archivo DigitoVerificador.cs.
+
+5) scripts/Agregar_Digito_Verificador_Usuario.sql
+   - Agrega columna Usuario.DVH.
+   - Crea tabla DigitoVerificadorVertical.
+   - Crea funciones SQL para calcular DVH.
+   - Crea stored procedures para recalcular y verificar DVV.
+   - Actualiza stored procedures de Usuario para incluir DVH.
+
+Cómo explicarlo en examen:
+
+El DVH protege cada registro de Usuario individualmente. Se calcula con una suma simple de los caracteres del nombre de usuario y la contraseña encriptada. Si alguien modifica directamente un usuario en la base, el cálculo ya no coincide y el sistema detecta el error.
+
+El DVV protege la tabla completa. Se calcula sumando todos los DVH de la tabla Usuario y guardando el resultado en la tabla DigitoVerificadorVertical. Si se agrega, borra o modifica un registro sin recalcular la integridad, el DVV no coincide.
+
+Flujo simple:
+
+Alta de usuario:
+UI -> BLL -> MPPUsuario -> DigitoVerificador.CalcularDVHUsuario() -> s_Usuario_Crear -> recalcular DVV
+
+Login/Listado:
+UI -> BLL -> MPPUsuario -> s_DigitoVerificador_Usuario_Verificar -> obtener usuario -> validar DVH -> continuar
+
+Orden de ejecución:
+1. Ejecutar Agregar_Modulo_Permisos_Composite.sql si todavía no se ejecutó.
+2. Ejecutar Agregar_Digito_Verificador_Usuario.sql.
+3. Abrir la solución en Visual Studio.
+4. Clean Solution.
+5. Rebuild Solution.
+6. Probar login y alta de usuario.

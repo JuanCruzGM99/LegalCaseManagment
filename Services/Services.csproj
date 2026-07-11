@@ -45,6 +45,7 @@
     <Compile Include="Composite\Familia.cs" />
     <Compile Include="Composite\Patente.cs" />
     <Compile Include="Composite\Permiso.cs" />
+    <Compile Include="DigitoVerificador.cs" />
     <Compile Include="Encriptador.cs" />
     <Compile Include="LoginException.cs" />
     <Compile Include="LoginResult.cs" />

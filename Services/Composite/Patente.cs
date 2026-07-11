@@ -12,7 +12,6 @@ namespace Services.Composite
     {
         public string Codigo { get; set; }
 
-        // Se usa para validar permisos en menú/login con SessionManager.IsInRole(...)
         public TipoPermiso? Tipo { get; set; }
 
         public override void AgregarPermiso(IPermiso p)

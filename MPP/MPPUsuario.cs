@@ -14,6 +14,7 @@ namespace MPP
     public class MPPUsuario
     {
         Encriptador encriptador = new Encriptador();
+        DigitoVerificador digitoVerificador = new DigitoVerificador();
 
         public bool CrearUsuario(EEUsuario _User)
         {
@@ -25,8 +26,14 @@ namespace MPP
                 string consulta = "s_Usuario_Crear";
                 hs.Add("@NombreUsuario", _User.Username);
                 hs.Add("@Contraseña", _User.Password);
+                hs.Add("@DVH", digitoVerificador.CalcularDVHUsuario(_User.Username, _User.Password));
 
-                return dal.Escribir(consulta, hs);
+                bool resultado = dal.Escribir(consulta, hs);
+
+                if (resultado)
+                    ActualizarDVVUsuarios();
+
+                return resultado;
             }
             catch (Exception ex)
             {
@@ -36,6 +43,8 @@ namespace MPP
 
         public List<EEUsuario> ListarUsuarios()
         {
+            VerificarIntegridadUsuarios();
+
             Acceso dal = new Acceso();
             DataSet ds = dal.Leer("S_Usuarios_Listar", null);
             List<EEUsuario> list_users = new List<EEUsuario>();
@@ -44,9 +53,11 @@ namespace MPP
             {
                 foreach (DataRow item in ds.Tables[0].Rows)
                 {
+                    ValidarDVHDeFilaUsuario(item);
+
                     EEUsuario user = new EEUsuario();
                     user.ID = Convert.ToInt32(item["IDUser"]);
-                    user.Username = item["NombreUsuario"].ToString();
+                    user.Username = item["NombreUsuario"].ToString().Trim();
                     user.Password = encriptador.Desencriptar(item["Contraseña"].ToString());
 
                     CargarPermisos(user);
@@ -59,6 +70,8 @@ namespace MPP
 
         public EEUsuario ListarUn_User(EEUsuario User)
         {
+            VerificarIntegridadUsuarios();
+
             Acceso dal = new Acceso();
             DataSet ds = new DataSet();
             Hashtable hs = new Hashtable();
@@ -72,12 +85,14 @@ namespace MPP
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 DataRow item = ds.Tables[0].Rows[0];
+                ValidarDVHDeFilaUsuario(item);
+
                 e_Usuario = new EEUsuario();
 
                 if (item.Table.Columns.Contains("IDUser"))
                     e_Usuario.ID = Convert.ToInt32(item["IDUser"]);
 
-                e_Usuario.Username = item["NombreUsuario"].ToString();
+                e_Usuario.Username = item["NombreUsuario"].ToString().Trim();
                 e_Usuario.Password = encriptador.Desencriptar(item["Contraseña"].ToString());
 
                 CargarPermisos(e_Usuario);
@@ -88,6 +103,8 @@ namespace MPP
 
         public EEUsuario ObtenerPorNombre(string nombreUsuario)
         {
+            VerificarIntegridadUsuarios();
+
             Acceso acceso = new Acceso();
             Hashtable parametros = new Hashtable();
             parametros.Add("@NombreUsuario", nombreUsuario);
@@ -97,10 +114,11 @@ namespace MPP
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 DataRow item = ds.Tables[0].Rows[0];
+                ValidarDVHDeFilaUsuario(item);
 
                 EEUsuario usuario = new EEUsuario();
                 usuario.ID = Convert.ToInt32(item["IDUser"]);
-                usuario.Username = item["NombreUsuario"].ToString();
+                usuario.Username = item["NombreUsuario"].ToString().Trim();
                 usuario.Password = encriptador.Desencriptar(item["Contraseña"].ToString());
 
                 CargarPermisos(usuario);
@@ -108,6 +126,43 @@ namespace MPP
             }
 
             return null;
+        }
+
+        public bool VerificarIntegridadUsuarios()
+        {
+            Acceso acceso = new Acceso();
+            DataSet ds = acceso.Leer("s_DigitoVerificador_Usuario_Verificar", null);
+
+            if (ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
+                return true;
+
+            DataRow fila = ds.Tables[0].Rows[0];
+            int dvvCalculado = Convert.ToInt32(fila["DVVCalculado"]);
+            int dvvPersistido = Convert.ToInt32(fila["DVVPersistido"]);
+
+            if (dvvCalculado != dvvPersistido)
+                throw new Exception("Error de integridad: el digito verificador vertical de Usuario no coincide.");
+
+            return true;
+        }
+
+        public bool ActualizarDVVUsuarios()
+        {
+            Acceso acceso = new Acceso();
+            return acceso.Escribir("s_DigitoVerificador_Usuario_Recalcular", null);
+        }
+
+        private void ValidarDVHDeFilaUsuario(DataRow item)
+        {
+            if (!item.Table.Columns.Contains("DVH"))
+                throw new Exception("La tabla Usuario no posee la columna DVH. Ejecutar el script de digito verificador.");
+
+            string nombreUsuario = item["NombreUsuario"].ToString();
+            string passwordEncriptada = item["Contraseña"].ToString();
+            int dvhPersistido = Convert.ToInt32(item["DVH"]);
+
+            if (!digitoVerificador.ValidarDVHUsuario(nombreUsuario, passwordEncriptada, dvhPersistido))
+                throw new Exception("Error de integridad: el digito verificador horizontal del usuario '" + nombreUsuario.Trim() + "' no coincide.");
         }
 
         private void CargarPermisos(EEUsuario usuario)
